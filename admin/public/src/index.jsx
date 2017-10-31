@@ -1,3 +1,5 @@
+import 'babel-polyfill';
+
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
@@ -10,8 +12,18 @@ require('../styles/application.scss')
 const store = configureStore()
 
 const env = {
-  environment: process.env.NODE_ENV || 'development'
+  environment: process.env.NODE_ENV || 'development',
+  capabilities: true
 }
+
+// Response for testing
+window.addEventListener('QuotaService.getCapabilities', e => {
+  console.log('got QuotaService.getCapabilities')
+  setTimeout(
+    () => e.detail.callback({ foo: 1 })
+    , 500
+  );
+});
 
 render(
   <Provider store={store}>

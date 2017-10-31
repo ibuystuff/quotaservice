@@ -114,7 +114,7 @@ export default class Sidebar extends Component {
     return (<Changes
       handleUndo={actions.undo}
       handleRedo={actions.redo}
-      handleRefresh={actions.fetchConfigs}
+      handleRefresh={this.props.handleRefresh}
       handleCommit={this.handleCommit}
       changes={namespaces.history}
     />)
@@ -173,5 +173,6 @@ Sidebar.propTypes = {
   configs: PropTypes.object.isRequired,
   selectedNamespace: PropTypes.object,
   currentVersion: PropTypes.number.isRequired,
+  handleRefresh: PropTypes.func.isRequired,
   env: PropTypes.object.isRequired
 }
