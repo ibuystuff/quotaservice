@@ -16,13 +16,42 @@ const env = {
   capabilities: true
 }
 
-// Response for testing
+
+// Capabilities response for testing
+
+let capabilities;
+
+function transformRawCapabilities(rawCapabilities) {
+  const capabilities = {};
+
+  Object.keys(rawCapabilities).forEach(namespaceName => {
+    // splitting by : and taking first part allows complex names spaces to match application names
+    namespaceName = namespaceName.split(/:/)[0];
+    capabilities[namespaceName] = rawCapabilities[namespaceName].find(group => ['deployers', 'owners'].indexOf(group) !== -1) !== undefined;
+  });
+
+  return capabilities;
+}
+
+window.addEventListener('QuotaService.fetchCapabilities', e => {
+  capabilities = fetch('/api/capabilities')
+    .then(response => response.json())
+    .then(transformRawCapabilities);
+
+  capabilities.then(e.detail.callback);
+});
+
 window.addEventListener('QuotaService.getCapabilities', e => {
-  console.log('got QuotaService.getCapabilities')
-  setTimeout(
-    () => e.detail.callback({ foo: 1 })
-    , 500
-  );
+  const { callback } = e.detail;
+  let { namespaceName } = e.detail;
+
+  if (!capabilities) {
+    callback(false);
+    return;
+  }
+
+  namespaceName = namespaceName.split(/:/)[0];
+  capabilities.then(capabilities => callback(capabilities[namespaceName]));
 });
 
 render(

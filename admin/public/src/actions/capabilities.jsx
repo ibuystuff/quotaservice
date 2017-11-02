@@ -11,7 +11,7 @@ export function fetchCapabilities(configs) {
       }
 
       window.dispatchEvent(new CustomEvent(
-        'QuotaService.getCapabilities',
+        'QuotaService.fetchCapabilities',
         { detail: { configs, callback } }
       ));
     });
