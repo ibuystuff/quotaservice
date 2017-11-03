@@ -52,9 +52,10 @@ export default class QuotaService extends Component {
   }
 
   render() {
-    const { configs, capabilities, confirm } = this.props
+    const { selectedNamespace, configs, capabilities, confirm } = this.props
     const classNames = ['flex-container', 'fill-height-container']
     const isLoading = configs.inRequest || (capabilities && capabilities.inRequest);
+    const canMakeChanges = selectedNamespace ? selectedNamespace.canMakeChanges : true;
 
     if (confirm) {
       classNames.push('blur')
@@ -63,6 +64,11 @@ export default class QuotaService extends Component {
     return (
       <div>
         {confirm && this.renderConfirmation()}
+
+        {!canMakeChanges &&
+          <div className="warning">You do not have permissions to make changes to this namespace.</div>
+        }
+
         <div className={classNames.join(' ')}>
           <Sidebar {...this.props} handleRefresh={this.fetchData.bind(this)} />
           {isLoading ? this.renderLoading() : <Namespaces {...this.props} />}

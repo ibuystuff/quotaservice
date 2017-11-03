@@ -4,8 +4,9 @@ import { Component } from 'react';
 
 export default class NamespaceTile extends Component {
   onClick = () => {
-    const { namespace, selectNamespace } = this.props
-    selectNamespace(namespace.name)
+    const { namespace, selectNamespace, capabilitiesEnabled } = this.props;
+    const { canMakeChanges } = this.state || {};
+    selectNamespace(namespace.name, capabilitiesEnabled ? canMakeChanges === true : true);
   }
 
   fetchCanMakeChanges() {

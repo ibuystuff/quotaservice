@@ -22,7 +22,7 @@ export default class Namespaces extends Component {
             capabilities={capabilities}
             capabilitiesEnabled={env.capabilities === true}
             eventEmitter={window}
-            isSelected={items[key] === selectedNamespace}
+            isSelected={items[key].name === (selectedNamespace ? selectedNamespace.namespace.name : '')}
             key={key}
             namespace={items[key]}
             selectNamespace={actions.selectNamespace}

@@ -13,17 +13,19 @@ import * as CapabilitiesActions from '../actions/capabilities.jsx'
 
 export default connect(
   state => {
-    let { selectedNamespace } = state
+    let { selectedNamespace } = state;
 
-    if (selectedNamespace) {
-      let namespace = state.namespaces.items[selectedNamespace]
-
-      return Object.assign({}, state, {
-        selectedNamespace: namespace
-      })
+    if (selectedNamespace && selectedNamespace.namespace) {
+      return {
+        ...state,
+        selectedNamespace: {
+          ...selectedNamespace,
+          namespace: state.namespaces.items[selectedNamespace.namespace],
+        },
+      };
     }
 
-    return state
+    return state;
   },
   dispatch => {
     return {
