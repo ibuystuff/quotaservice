@@ -7,7 +7,9 @@
     "start": "node server.js",
     "test": "jest",
     "dist": "webpack --config webpack.config.production.js --progress --profile --colors",
-    "clean-dist": "webpack --config webpack.config.production.js"
+    "clean-dist": "webpack --config webpack.config.production.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -48,6 +50,8 @@
     "redux": "^3.7.2",
     "redux-api-middleware": "~1.0.2",
     "redux-thunk": "^2.2.0",
-    "seamless-immutable": "^7.0.0"
-  }
+    "seamless-immutable": "^7.0.0",
+    "snyk": "^1.316.1"
+  },
+  "snyk": true
 }
