@@ -46,7 +46,7 @@
     "prop-types": "^15.6.0",
     "react-redux": "~5.0.1",
     "redux": "^3.7.2",
-    "redux-api-middleware": "~1.0.2",
+    "redux-api-middleware": "~2.0.0",
     "redux-thunk": "^2.2.0",
     "seamless-immutable": "^7.0.0"
   }
